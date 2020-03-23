@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/views/Login'
-import Main from '@/views/Main'
-import ManageMain from '@/views/ManageMain'
-import findProject from '@/views/card/findProject'
-import personCenter from '@/views/card/personCenter'
-import borrowingRecords from '@/views/card/borrowingRecords'
-import findProject2 from '@/views/card/findProject2'
-import addBook from '@/views/card/addBook'
-import lostBook from '@/views/card/lostBook'
+import Main from '@/views/view2/Main'
+import ManageMain from '@/views/view1/ManageMain'
+import findProject from '@/views/view2/findProject'
+import personCenter from '@/views/view1/personCenter'
+import borrowingRecords from '@/views/view2/borrowingRecords'
+import findProject2 from '@/views/view1/findProject2'
+import addBook from '@/views/view1/addBook'
+import lostBook from '@/views/view1/lostBook'
 Vue.use(Router)
 
 export default new Router({

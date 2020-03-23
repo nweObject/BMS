@@ -52,9 +52,10 @@ export default {
   },
   methods: {
     init() {
-      axios.get("api/borrower/lostBooks").then(Response => {
+      this.$http.get("api/borrower/lostBooks").then(Response => {
         this.tableData = Response.data.data;
-      });
+      })
+      axios;
     },
     review(lostRecorderId) {
       axios

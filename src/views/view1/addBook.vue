@@ -38,17 +38,16 @@ export default {
   data() {
     return {
       form: {
-        bookName: "",
-        description: "",
-        price: "",
-        bookImg: ""
+        bookName: null,
+        description: null,
+        price: null,
+        bookImg: null
       },
       imageUrl: ""
     };
   },
   methods: {
     onSubmit() {
-      console.log(this.form.bookImg);
       axios
         .post("api/book/add", {
           bookName: this.form.bookName,
