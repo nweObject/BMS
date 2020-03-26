@@ -3,15 +3,19 @@
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="书籍名称">
         <el-input v-model="form.bookName"></el-input>
+        <span v-if="form.bookName == null" style="color: red">{{erro.bookNameErro}}</span>
       </el-form-item>
       <el-form-item label="书籍描述 ">
         <el-input v-model="form.description"></el-input>
+        <span v-if="form.description == null" style="color: red">{{erro.descriptionErro}}</span>
       </el-form-item>
       <el-form-item label="书籍价格">
         <el-input v-model="form.price"></el-input>
+        <span v-if="form.price == null" style="color: red">{{erro.priceErro}}</span>
       </el-form-item>
       <el-form-item label="书籍图片">
         <el-input v-model="form.bookImg"></el-input>
+        <span v-if="form.bookImg == null" style="color: red">{{erro.imgErro}}</span>
         <div>
           <el-upload
             class="avatar-uploader"
@@ -43,11 +47,37 @@ export default {
         price: null,
         bookImg: null
       },
+      erro: {
+        bookNameErro: "",
+        descriptionErro: "",
+        priceErro: "",
+        imgErro: ""
+      },
       imageUrl: ""
     };
   },
   methods: {
     onSubmit() {
+      if (this.form.bookName == null) {
+        this.erro.bookNameErro = "书籍名不能为空";
+        console.log(1)
+        return;
+      }
+      if (this.form.description == null) {
+        this.erro.descriptionErro = "书籍描述不能为空";
+        console.log(2)
+        return;
+      }
+      if (this.form.price == null) {
+        this.erro.priceErro = "书籍价格不能为空";
+        console.log(3)
+        return;
+      }
+      if (this.form.bookImg == null) {
+        this.erro.imgErro = "图片不能为空";
+        console.log(4)
+        return;
+      }
       axios
         .post("api/book/add", {
           bookName: this.form.bookName,
@@ -57,6 +87,7 @@ export default {
         })
         .then(Response => {
           console.log(Response.data.data);
+          this.$router.replace({ path: "/ManageMain" });
         });
     },
     handleAvatarSuccess(res, file) {

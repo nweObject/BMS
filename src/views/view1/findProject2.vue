@@ -32,6 +32,10 @@
         </el-col>
       </el-row>
     </div>
+    <div class="page">
+      <el-pagination background layout="prev, pager, next" :total="total" :current-page.sync="currentPage" :page-size="pageSize"></el-pagination>
+    </div>
+    <div class="newList-list" v-if="(!isloading) && (data.length === 0)">暂无数据</div>
   </div>
 </template>
 
@@ -42,7 +46,12 @@ export default {
     return {
       data: [],
       keywords: "",
-      message: ""
+      message: "",
+      total: 0, // 总页数
+      pageNum: 1, // 第几页
+      pageSize: 8, // 每页显示的数量
+      isloading: false,
+      currentPage: 1
     };
   },
   methods: {
@@ -58,16 +67,33 @@ export default {
         });
     },
     getBookList() {
-      axios.get("api/book/all").then(response => {
-        console.log(response.data.data);
-        this.data = response.data.data;
-      });
+      axios
+        .get("api/book/all", {
+          params: {
+            pageSize: this.pageSize,
+            pageNum: this.currentPage
+          }
+        })
+        .then(response => {
+          console.log(response.data.data);
+          this.data = response.data.data.list;
+          this.total = response.data.data.total; // 总页数
+        });
+    },
+    exchangeCurrentPage() {
+      this.Data = [];
+      this.isloading = true;
+      this.getBookList();
     }
   },
   mounted() {
     this.getBookList();
   },
   watch: {
+    currentPage(oldV, newV) {
+      console.log(oldV, newV);
+      this.exchangeCurrentPage();
+    },
     //监听路由是否发生变化
     $route(to, from) {
       console.log("watch $route");
@@ -145,7 +171,7 @@ export default {
 }
 .mainBox {
   margin-top: 50px;
-  margin-left: 350px;
+  margin-left: 270px;
 }
 .image {
   height: 300px;
@@ -153,5 +179,8 @@ export default {
 .item {
   margin-left: 7px;
   margin-bottom: 5px;
+}
+.page {
+  margin-top: 100px;
 }
 </style>
