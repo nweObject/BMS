@@ -171,7 +171,7 @@ export default {
 }
 .mainBox {
   margin-top: 50px;
-  margin-left: 270px;
+  margin-left: 50px;
 }
 .image {
   height: 300px;

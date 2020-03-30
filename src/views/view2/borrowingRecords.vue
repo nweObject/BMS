@@ -76,7 +76,6 @@ export default {
     },
     //延期归还
     moreTime(userBookId, bookId) {
-      console.log(userBookId, bookId);
       axios
         .put("api/borrower/update", {
           userbookId: userBookId,
